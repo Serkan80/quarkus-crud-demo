@@ -27,7 +27,7 @@ public class EmployeeEntity extends PanacheEntity {
     public UUID externalId;
 
     @NotBlank
-    public String name;
+    public String firstname;
 
     @NotBlank
     public String lastname;
@@ -50,7 +50,7 @@ public class EmployeeEntity extends PanacheEntity {
     }
 
     public EmployeeEntity(Employee employee) {
-        this.name = employee.name();
+        this.firstname = employee.firstname();
         this.lastname = employee.lastname();
         this.birthday = employee.birthday();
         this.cellphone = employee.cellphone();
@@ -70,7 +70,7 @@ public class EmployeeEntity extends PanacheEntity {
     }
 
     public static List<Employee> listAll() {
-        return find("from EmployeeEntity")
+        return findAll()
                 .withHint(HINT_READONLY, true)
                 .project(Employee.class)
                 .list();

@@ -15,7 +15,7 @@ public record Employee(
         UUID externalId,
 
         @NotBlank
-        String name,
+        String firstname,
 
         @NotBlank
         String lastname,
