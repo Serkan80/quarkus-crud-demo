@@ -32,10 +32,12 @@ public class EmployeeEntity extends PanacheEntity {
     @NotBlank
     public String lastname;
 
+    @NotBlank
     @PastOrPresent
     public LocalDate birthday;
 
     @Email
+    @NotBlank
     public String email;
 
     @NotBlank

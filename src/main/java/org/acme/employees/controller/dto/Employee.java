@@ -20,6 +20,7 @@ public record Employee(
         @NotBlank
         String lastname,
 
+        @NotBlank
         @PastOrPresent
         LocalDate birthday,
 
