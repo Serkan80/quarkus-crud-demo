@@ -32,7 +32,7 @@ public class EmployeeEntity extends PanacheEntity {
     @NotBlank
     public String lastname;
 
-    @NotBlank
+    @NotNull
     @PastOrPresent
     public LocalDate birthday;
 
