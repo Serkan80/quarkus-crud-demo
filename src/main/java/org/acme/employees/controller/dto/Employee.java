@@ -35,5 +35,4 @@ public record Employee(
         @NotNull
         Gender gender
 ) {
-
 }

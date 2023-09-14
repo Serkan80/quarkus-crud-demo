@@ -77,4 +77,8 @@ public class EmployeeEntity extends PanacheEntity {
                 .project(Employee.class)
                 .list();
     }
+
+    public Employee toDto() {
+        return new Employee(this.externalId, this.firstname, this.lastname, this.birthday, this.email, this.cellphone, this.gender);
+    }
 }

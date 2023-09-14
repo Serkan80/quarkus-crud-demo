@@ -1,14 +1,17 @@
 package org.acme.employees.controller;
 
-import io.quarkus.logging.Log;
-import jakarta.transaction.Transactional;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import org.acme.employees.controller.dto.Employee;
+import org.acme.employees.controller.dto.EmployeeUpdateRequest;
 import org.acme.employees.model.EmployeeEntity;
 import org.acme.employees.model.Gender;
+import org.acme.employees.service.EmployeeService;
 import org.jboss.resteasy.reactive.RestResponse;
 
 import java.net.URI;
@@ -18,16 +21,26 @@ import java.util.UUID;
 @Path("/employees")
 public class EmployeeController {
 
-    @POST
-    @Transactional
-    public RestResponse<Void> save(Employee employee) {
-        // this way of mapping is just for the sake of demo, for production use something like MapStruct
-        var entity = new EmployeeEntity(employee);
-        entity.externalId = UUID.randomUUID();
-        entity.persist(entity);
+    @Inject
+    EmployeeService employeeService;
 
-        Log.infof("Employee(extId=%s) created", entity.externalId);
-        return RestResponse.created(URI.create("/employees/" + entity.externalId));
+    @POST
+    public RestResponse<Void> save(Employee employee) {
+        var result = this.employeeService.save(employee);
+        return RestResponse.created(URI.create("/employees/" + result.externalId()));
+    }
+
+    @PATCH
+    @Path("/{id}")
+    public RestResponse<Employee> update(UUID id, EmployeeUpdateRequest request) {
+        return RestResponse.ok(this.employeeService.update(id, request));
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public RestResponse<Void> delete(UUID id) {
+        this.employeeService.deleteById(id);
+        return RestResponse.noContent();
     }
 
     @GET
