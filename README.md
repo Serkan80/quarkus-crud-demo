@@ -2,9 +2,8 @@
 
 Just a demo of how to write a simple CRUD application in an efficient way without much boilerplate code.
 
-Note that the code in the controller could be refactored to a (seperate) service class if it contains quite a lot business logic.
-
-The configuration in the `application.properties` is fully optional when running in dev mode. I put it there as best practice for configuring your DB & devservices.
+The configuration in the `application.properties` is optional when running in dev mode (except the Liquibase config).   
+I put some of the essentials for configuring your DB & devservices.
 
 Furthermore you need:
  - jdk17 (or higher)
